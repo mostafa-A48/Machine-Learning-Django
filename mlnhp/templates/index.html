@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        input {
+            border-radius: 50px !important;
+        }
+
+        input:focus {
+            color: black !important;
+            background: #efefef !important;
+            border-radius: 0 !important;
+            border-image: unset;
+        }
+    </style>
+</head>
+
+<body style="font-family: 'Times New Roman', Times, serif;">
+    <div class="container" style="padding: 2rem;">
+        <div class="row" style="display: flex; justify-content: center;">
+            
+            <div class="col">
+                <a href="{% url 'mlnhp:scrape' %}" style="margin-bottom: 4rem; display: block;">Scrape Pajhwak afghan news and classify news headlines</a>
+                <h1 style="border-bottom: 2px solid red; padding-bottom: 1rem;">
+                    The World's Best News Category Predictor</h1>
+                <form action="{% url 'mlnhp:predict' %}" style="margin-top: 4rem;" method="">
+                    {% csrf_token %}
+                    <input type="text" placeholder="Enter the News Headline" name="headline" id="headline"
+                        style="margin-top: 1rem; width: 97%; height: 20px;font-size: 1.3rem;padding: 1rem 10px ;border-radius: 30px; border: 1px solid #000; background: transparent; ">
+                    <div style="width: 100%; display: flex; justify-content: flex-end;">
+                        <input type="submit" value="Predict the Category"
+                            style="display: inline-block ;margin-top: 4rem; padding-right: 1.5rem ; padding-left: 1.5rem;font-size: 1rem ; height: 50px; border: transparent;cursor: pointer; box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14); background: #5D2BFF;color: white">
+                    </div>
+                    <div style="text-align: center; margin-top: 4rem;">
+                        {% if name %}
+                        <h2>The predicted Category is <span style="color: darkblue">{{name}}</span></h2>
+                        {% endif %}
+                        {% if message %}
+                            <h2>{{ message }}</h2>
+                            <a href="/admin/mlnhp/news/">Click to see the list of news headlines</a>
+                        {% endif %}
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
